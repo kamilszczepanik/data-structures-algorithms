@@ -17,23 +17,21 @@ function hasPairWithSumBruteForce(array, sum) {
 }
 
 // better - O(n) - linear
-function hasPairWithSumLinearSorted(array, sum) {
+function hasPairWithSumLinearSorted(nums, target) {
   let low = 0;
-  let high = array.length - 1;
+  let high = nums.length - 1;
 
   while (low < high) {
-    const s = array[low] + array[high];
-    if (s === sum) {
-      return true;
-    }
-    if (s < sum) {
+    const s = nums[low] + nums[high];
+    if (s === target) {
+      return [low, high];
+    } else if (s < target) {
       low++;
-    }
-    if (s > sum) {
+    } else if (s > target) {
       high--;
     }
   }
-  return false;
+  return [low, high];
 }
 
 // O(n) Linear for not sorted array
@@ -63,6 +61,23 @@ function hasPairWithSumLinearNotSortedSet(array, sum) {
       return `First number: ${sum - element}, second number: ${element}`;
     }
     complements.add(sum - element);
+  }
+
+  return "No matching pair found";
+}
+
+// with indexes returned
+function hasPairWithSumLinearNotSortedSet(nums, target) {
+  let complements = new Map();
+
+  for (let i = 0; i < nums.length; i++) {
+    const element = nums[i];
+
+    if (complements.has(element)) {
+      return [complements.get(element), i];
+    }
+
+    complements.set(target - element, i);
   }
 
   return "No matching pair found";
