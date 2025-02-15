@@ -1,5 +1,5 @@
 const strings = ["a", "b", "c", "d"];
-//  4*4 = 16 bytes of storage
+//  4*4 = 16 bytes of storage -> if you add 5th element the space is doubled so 4*8
 
 // access
 string[2]; // O(1)
