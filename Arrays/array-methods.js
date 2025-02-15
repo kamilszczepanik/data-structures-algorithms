@@ -33,3 +33,13 @@ strings.some((element) => element === "a"); // O(n)
 
 // Returns true if all elements meet the condition.
 strings.every((element) => element === "a"); // O(n)
+
+// Change string to array
+const str = "apple,banana,orange";
+const result = str.split(","); // O(n)
+
+// convert array to string and merge without ","
+strings.join(); // O(n)
+
+// convert array to string
+strings.toString(); // O(n)
