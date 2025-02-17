@@ -7,33 +7,41 @@ class Node {
 
 class Queue {
   constructor(value) {
-    this.first = { value, next: null };
-    this.last = this.first;
-    this.length = 1;
+    this.first = null;
+    this.last = null;
+    this.length = 0;
   }
 
   enqueue(value) {
     const newNode = new Node(value);
-    this.last.next = newNode;
-    this.last = newNode;
+
+    if (!this.first) {
+      this.first = this.last = newNode;
+    } else {
+      this.last.next = newNode;
+      this.last = newNode;
+    }
+
     this.length++;
 
     return this;
   }
 
   dequeue() {
-    // take the first and make the second - first
+    if (!this.first) return null;
+
     this.first = this.first.next;
-    if (this.length === 1) {
+    this.length--;
+
+    if (this.length === 0) {
       this.last = null;
     }
-    this.length--;
 
     return this;
   }
 
   peek() {
-    return this.last.value;
+    return this.first ? this.first.value : null;
   }
 
   get isEmpty() {
@@ -41,9 +49,10 @@ class Queue {
   }
 }
 
-const myQueue = new Queue("Joy");
+const myQueue = new Queue();
 
 // wait list app
+myQueue.enqueue("Joy");
 myQueue.enqueue("Matt");
 myQueue.enqueue("Pavel");
 myQueue.enqueue("Samir");
