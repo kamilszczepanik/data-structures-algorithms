@@ -8,6 +8,13 @@
 //         next: null,
 //       },
 //     },
+//     previous: {
+//       value: 2,
+//       previous: {
+//         value: 1,
+//         previous: null,
+//       },
+//     },
 //   },
 // };
 
@@ -15,6 +22,7 @@ class Node {
   constructor(value) {
     this.value = value;
     this.next = null;
+    this.prev = null;
   }
 }
 
@@ -24,6 +32,7 @@ class LinkedList {
     this.head = {
       value,
       next: null,
+      prev: null,
     };
     this.tail = this.head;
     this.length = 1;
@@ -31,6 +40,7 @@ class LinkedList {
 
   append(value) {
     const newNode = new Node(value);
+    newNode.prev = this.tail;
     this.tail.next = newNode; // Head gets updated because of the reference
     this.tail = newNode;
     this.length++;
@@ -40,6 +50,7 @@ class LinkedList {
 
   prepend(value) {
     const newNode = new Node(value);
+    this.head.prev = newNode;
     newNode.next = this.head;
     this.head = newNode;
     this.length++;
@@ -66,8 +77,10 @@ class LinkedList {
     const newNode = new Node(value);
     const leader = this.traverseToIndex(index - 1);
     const holdingPointer = leader.next;
+    holdingPointer.prev = newNode;
     leader.next = newNode;
     newNode.next = holdingPointer;
+    newNode.prev = leader;
     this.length++;
 
     return this;
@@ -91,18 +104,23 @@ class LinkedList {
       indexGreaterThanListLength ? this.length - 2 : index - 1
     );
     const unwantedNode = leader.next;
+    const nextNode = unwantedNode.next;
     leader.next = indexGreaterThanListLength ? null : unwantedNode.next;
+    nextNode.prev = leader;
     this.length--;
 
     return this;
   }
 }
 
-const myLinkedList = new LinkedList(10);
-myLinkedList.append(5);
-myLinkedList.append(16);
+const myLinkedList = new DoublyLinkedList(10);
+myLinkedList.printList();
 myLinkedList.prepend(1);
 myLinkedList.printList();
+myLinkedList.append(5);
+myLinkedList.append(16);
+myLinkedList.printList();
 myLinkedList.insert(2, 99);
+myLinkedList.printList();
 myLinkedList.remove(2);
 myLinkedList.printList();
