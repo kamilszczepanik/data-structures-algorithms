@@ -37,7 +37,7 @@ class Stack {
   }
 
   get isEmpty() {
-    return !this.top.value ? true : false;
+    return this.length === 0 ? true : false;
   }
 }
 
