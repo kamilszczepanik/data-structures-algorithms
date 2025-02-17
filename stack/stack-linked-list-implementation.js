@@ -21,6 +21,8 @@ class Stack {
     newNode.next = this.top;
     this.top = newNode;
     this.length++;
+
+    return this;
   }
 
   peek() {
@@ -30,6 +32,8 @@ class Stack {
   pop() {
     this.top = this.top.next;
     this.length--;
+
+    return this;
   }
 
   get isEmpty() {
@@ -38,6 +42,8 @@ class Stack {
 }
 
 const myStack = new Stack();
+
+console.log(myStack.peek());
 
 myStack.push("Discord");
 myStack.push("Udemy");
