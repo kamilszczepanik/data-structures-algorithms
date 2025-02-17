@@ -13,8 +13,10 @@ class MyQueue {
   }
 
   pop() {
-    for (let i = this.inputStack.length - 1; i >= 0; i--) {
-      this.outputStack.push(this.inputStack.pop());
+    if (this.inputStack.length !== this.outputStack.length) {
+      for (let i = this.inputStack.length - 1; i >= 0; i--) {
+        this.outputStack.push(this.inputStack.pop());
+      }
     }
 
     return this.outputStack.pop();
