@@ -96,13 +96,37 @@ class SinglyLinkedList {
 
     return this;
   }
+
+  reverse() {
+    if (!this.head.next) {
+      return this;
+    }
+
+    let first = this.head;
+    let second = first.next;
+    this.tail = first;
+
+    while (second) {
+      const third = second.next;
+      second.next = first;
+      first = second;
+      second = third;
+    }
+
+    this.tail.next = null;
+    this.head = first;
+  }
 }
 
 const myLinkedList = new SinglyLinkedList(10);
 myLinkedList.append(5);
 myLinkedList.append(16);
+myLinkedList.append(32);
+myLinkedList.append(161);
 myLinkedList.prepend(1);
-myLinkedList.printList();
 myLinkedList.insert(2, 99);
 myLinkedList.remove(2);
 myLinkedList.printList();
+myLinkedList.reverse();
+myLinkedList.printList();
+console.log(myLinkedList);
