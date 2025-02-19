@@ -2,10 +2,12 @@ const numbers = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0];
 
 function insertionSort(array) {
   for (let i = 1; i < array.length; i++) {
+    let numberToCompare = array[i];
+
     for (let j = i - 1; j >= 0; j--) {
-      if (array[i] < array[j]) {
+      if (numberToCompare < array[j]) {
         const temp = array[j];
-        array[j] = array[i];
+        array[j] = numberToCompare;
         array[j + 1] = temp;
       }
     }
@@ -14,7 +16,23 @@ function insertionSort(array) {
   return array;
 }
 
-console.log(insertionSort(numbers));
+function insertionSortImproved(array) {
+  const length = array.length;
 
-// Best case: O(n)
-// Worst case: O(n^2)
+  for (let i = 0; i < length; i++) {
+    if (array[i] < array[0]) {
+      array.unshift(array.splice(i, 1)[0]);
+    } else {
+      for (let j = 1; j < i; j++) {
+        if (array[i] > array[j - 1] && array[i] < array[j]) {
+          array.splice(j, 0, array.splice(i, 1)[0]);
+        }
+      }
+    }
+  }
+
+  return array;
+}
+
+console.log(insertionSort(numbers));
+console.log(insertionSortImproved(numbers));
