@@ -15,4 +15,4 @@ function bubbleSort(array) {
   return array;
 }
 
-console.log(bubbleSort(numbers));
+console.log(bubbleSort(numbers)); // O(n^2)
