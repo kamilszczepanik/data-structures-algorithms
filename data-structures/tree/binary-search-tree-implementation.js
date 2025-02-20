@@ -179,6 +179,64 @@ class BinarySearchTree {
 
     return this.breathFirstSearch(queue, list);
   }
+  depthFirstSearchInOrder() {
+    return traverseInOrder(this.root, []);
+  }
+  depthFirstSearchPostOrder() {
+    return traversePostOrder(this.root, []);
+  }
+  depthFirstSearchPreOrder() {
+    return traversePreOrder(this.root, []);
+  }
+}
+
+function traverseInOrder(node, list) {
+  if (node.left) {
+    traverseInOrder(node.left, list); // after finding deepest element this is finished and then the program goes under. This works because of the stacking function and going back to the upper values.
+  }
+
+  list.push(node.value);
+
+  if (node.right) {
+    traverseInOrder(node.right, list);
+  }
+
+  return list;
+}
+
+function traversePreOrder(node, list) {
+  list.push(node.value);
+
+  if (node.left) {
+    traversePreOrder(node.left, list);
+  }
+
+  if (node.right) {
+    traversePreOrder(node.right, list);
+  }
+
+  return list;
+}
+
+function traversePostOrder(node, list) {
+  if (node.left) {
+    traversePostOrder(node.left, list);
+  }
+
+  if (node.right) {
+    traversePostOrder(node.right, list);
+  }
+
+  list.push(node.value);
+
+  return list;
+}
+
+function traverse(node) {
+  const tree = { value: node.value };
+  tree.left = node.left === null ? null : traverse(node.left);
+  tree.right = node.right === null ? null : traverse(node.right);
+  return tree;
 }
 
 const tree = new BinarySearchTree();
@@ -189,19 +247,16 @@ tree.insert(20);
 tree.insert(170);
 tree.insert(15);
 tree.insert(1);
-tree.remove(170);
+// tree.remove(170);
 JSON.stringify(traverse(tree.root));
 console.log(tree.lookup(20));
+
 //     9
 //  4     20
 //1  6  15  170
 
 console.log(tree.breathFirstSearch());
 console.log(tree.breathFirstSearchRecursive([tree.root], []));
-
-function traverse(node) {
-  const tree = { value: node.value };
-  tree.left = node.left === null ? null : traverse(node.left);
-  tree.right = node.right === null ? null : traverse(node.right);
-  return tree;
-}
+console.log(tree.depthFirstSearchInOrder());
+console.log(tree.depthFirstSearchPreOrder());
+console.log(tree.depthFirstSearchPostOrder());
