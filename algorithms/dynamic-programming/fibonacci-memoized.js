@@ -16,15 +16,26 @@ function fibonacciMemoized() {
     if (n in cache) {
       return cache[n];
     } else {
+      calculationsForMemoized++;
       if (n < 2) {
         return n;
       } else {
-        calculationsForMemoized++;
         cache[n] = fib(n - 1) + fib(n - 2);
         return cache[n];
       }
     }
   };
+}
+
+function fibonacciMemoizedBottomUp(n) {
+  let answer = [0, 1];
+
+  for (let i = 2; i < n; i++) {
+    console.log(answer[i - 1]);
+    answer.push(answer[i - 1] + answer[i - 1]);
+  }
+
+  return answer.pop();
 }
 
 console.log("Result of a function: ", fibonacci(30));
