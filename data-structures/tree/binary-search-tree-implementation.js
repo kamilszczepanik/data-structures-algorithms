@@ -132,6 +132,53 @@ class BinarySearchTree {
       }
     }
   }
+
+  breathFirstSearch() {
+    let currentNode = this.root;
+    const list = [];
+    const queue = []; // high memory consumption because of this queue
+
+    queue.push(currentNode);
+
+    while (queue.length > 0) {
+      currentNode = queue.shift();
+      list.push(currentNode.value);
+      const leftChild = currentNode.left;
+      const rightChild = currentNode.right;
+
+      if (leftChild) {
+        queue.push(leftChild);
+      }
+
+      if (rightChild) {
+        queue.push(rightChild);
+      }
+    }
+
+    return list;
+  }
+
+  breathFirstSearchRecursive(queue, list) {
+    if (!queue.length) {
+      return list;
+    }
+
+    let currentNode = queue.shift();
+    list.push(currentNode.value);
+
+    const leftChild = currentNode.left;
+    const rightChild = currentNode.right;
+
+    if (leftChild) {
+      queue.push(leftChild);
+    }
+
+    if (rightChild) {
+      queue.push(rightChild);
+    }
+
+    return this.breathFirstSearch(queue, list);
+  }
 }
 
 const tree = new BinarySearchTree();
@@ -148,6 +195,9 @@ console.log(tree.lookup(20));
 //     9
 //  4     20
 //1  6  15  170
+
+console.log(tree.breathFirstSearch());
+console.log(tree.breathFirstSearchRecursive([tree.root], []));
 
 function traverse(node) {
   const tree = { value: node.value };
