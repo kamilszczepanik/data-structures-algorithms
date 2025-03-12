@@ -74,7 +74,7 @@ class SinglyLinkedList {
   }
 
   traverseToIndex(index) {
-    let counter = 0;
+    let counter = 0
     let currentNode = this.head;
 
     while (counter !== index) {
